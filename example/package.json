@@ -7,9 +7,9 @@
     "start": "nodemon src/index.js --exec babel-node --presets es2015,stage-2"
   },
   "dependencies": {
-    "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
-    "nodemon": "^1.12.5"
+    "nodemon": "^1.12.5",
+    "pdvindecoder": "^0.1.2"
   },
   "author": "Aleks Basalilov",
   "license": "MIT",

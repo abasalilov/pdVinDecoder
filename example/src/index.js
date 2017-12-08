@@ -1,5 +1,4 @@
-import decode from '../../lib/index.js';
-
+import decode from 'pdvindecoder/lib';
 
 //VIN Description: 2013 Tesla Model S
 //5YJSA1DG9DFP14705
