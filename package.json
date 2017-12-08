@@ -1,0 +1,47 @@
+{
+  "name": "pdvindecoder",
+  "version": "0.0.1",
+  "description": "pdico ",
+  "files": [
+    "lib",
+    "example"
+  ],
+  "scripts": {
+    "prestart": "npm run build",
+    "start": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
+    "pretest": "npm run build",
+    "test": "npm run build && mocha --compilers js:babel-core/register",
+    "build": "babel src -d lib --presets es2015,stage-2",
+    "build:share": "babel src --out-dir lib --copy-files --source-maps inline --ignore test.js",
+    "prepublishOnly": "npm run build:share"
+  },
+  "dependencies": {
+    "axios": "^0.17.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abasalilov/pdVinDecoder.git"
+  },
+  "keywords": [
+    "vin",
+    "decoder",
+    "auto",
+    "car",
+    "autoparts"
+  ],
+  "author": "Aleks Basalilov",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.11.4",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-regenerator": "^6.1.4",
+    "babel-polyfill": "^6.1.4",
+    "babel-preset-es2015": "^6.1.4",
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3",
+    "nodemon": "^1.12.5"
+  }
+}

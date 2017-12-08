@@ -1,0 +1,20 @@
+{
+  "name": "pdvindecoder_example",
+  "version": "0.1.0",
+  "description": "pdvindecoder_example_app ",
+  "main": "example.js",
+  "scripts": {
+    "start": "nodemon src/index.js --exec babel-node --presets es2015,stage-2"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "babel-cli": "^6.26.0",
+    "nodemon": "^1.12.5"
+  },
+  "author": "Aleks Basalilov",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abasalilov/pdVinDecoder.git"
+  }
+}
