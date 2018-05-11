@@ -1,7 +1,6 @@
 import axios from "axios";
-import decode from './vinDecoder';
-import { baseURL, makeNHTSAReq } from './index'
-
+import vinDecoder from './vinDecoder';
+import DropDown from './dropDownApi'
 
 export const baseURL = [
   "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/",
@@ -14,3 +13,6 @@ export const makeNHTSAReq = url =>
     method: "get",
     url: url.replace(/\s/g, "")
   });
+
+  export const decoder = vinDecoder;
+  export const DropDownAPI = DropDown;

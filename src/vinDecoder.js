@@ -12,7 +12,7 @@ const sortData = data => {
   return nonEmptyData;
 };
 
-async function decode(vin) {
+async function vinDecoder(vin) {
   if (vin === undefined || vin.length < 1 || vin === null) {
     return { results: false };
   }
@@ -28,6 +28,6 @@ async function decode(vin) {
 }
 
 
-export default decode;
+export default vinDecoder;
 
 

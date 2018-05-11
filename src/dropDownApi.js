@@ -2,7 +2,7 @@ import axios from "axios";
 import { CarQuery } from "car-query";
 import { makeNHTSAReq } from './index'
 
-export class DropDownAPI {
+export default class DropDown {
   constructor() {
     this.year = null;
     this.make = null;
