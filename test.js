@@ -16,24 +16,24 @@ const baseURL =
 
 const exampleAnswer = {};
 
-describe("decoder", () => {
-  it("should return false when vin is empty", async () => {
-    const vinResponse = await decoder();
-    const make = await makes();
-    expect(vinResponse.results).to.be.equal(false);
-  });
+// describe("decoder", () => {
+//   it("should return false when vin is empty", async () => {
+//     const vinResponse = await decoder();
+//     const make = await makes();
+//     expect(vinResponse.results).to.be.equal(false);
+//   });
 
-  it("should return true when vin entered for a 2002 Acura TL", async () => {
-    const vinResponse = await decoder("19UUA56602A801534");
-    expect(vinResponse.results).to.be.equal(true);
-  });
+//   it("should return true when vin entered for a 2002 Acura TL", async () => {
+//     const vinResponse = await decoder("19UUA56602A801534");
+//     expect(vinResponse.results).to.be.equal(true);
+//   });
 
-  it("should return data with a ModeYear property of `2002` when vin entered for a 2002 Acura TL", async () => {
-    const vinResponse = await decoder("19UUA56602A801534");
-    // console.log('vinResponse', vinResponse)
-    expect(vinResponse.ModelYear).to.be.equal("2002");
-  });
-});
+//   it("should return data with a ModeYear property of `2002` when vin entered for a 2002 Acura TL", async () => {
+//     const vinResponse = await decoder("19UUA56602A801534");
+//     // console.log('vinResponse', vinResponse)
+//     expect(vinResponse.ModelYear).to.be.equal("2002");
+//   });
+// });
 
 const currentYear = new Date().getFullYear();
 
