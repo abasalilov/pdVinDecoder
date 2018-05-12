@@ -70,7 +70,7 @@ export default class DropDown {
     );
     try {
       const makeResponse = await makesReq();
-      return this.sortMakes(makeResponse.data.Results);
+      return makeResponse.data.Results;
     } catch (e) {
       console.log("Error in the request", e);
       return e;

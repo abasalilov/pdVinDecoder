@@ -77,7 +77,7 @@ describe("YMM", () => {
     expect(all_makes.length).to.be.equal(156);
   });
 
-  it.only("getAllUSMakesByYear returns an Array of all makes sold in US", async () => {
+  it("getAllUSMakesByYear returns an Array of all makes sold in US", async () => {
     const all_makes = await dropDownInstance.getAllUSMakesByYear(2017);
     expect(all_makes.length).to.be.equal(94);
   });
