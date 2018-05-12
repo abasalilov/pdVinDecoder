@@ -11,37 +11,24 @@ export default class DropDown {
   }
 
   sortMakes(data) {
-    // const nonEmptyData = {};
-    // for (const key in data) {
-    //   if (data[key] !== "") {
-    //     nonEmptyData[key] = data[key];
-    //   }
-    // }
-    // nonEmptyData["results"] = true;
-    // return nonEmptyData;
-    console.log('data', data)
+    return data.filter((a) => a.isCommon === true);
   };
 
-  updateYear(yr) {
+  setYear(yr) {
     this.year = yr;
   }
 
-  updateMake(make) {
+  setMake(make) {
     this.make = make;
   }
 
-  updateModel (model) {
+  setModel (model) {
       this.model = model;
   }
 
-  updateEngineSize(engSize){
+  setEngineSize(engSize){
       this.engSize = engSize;
   }
-
-  async getAvailableYears() {
-    const carQuery = new CarQuery();
-    return carQuery.getYears().then(years => years);
-  };
 
   async getNewModels(make) {
     const carMakesReq = makeNHTSAReq(
@@ -49,7 +36,8 @@ export default class DropDown {
     );
     try {
       const carMakesResponse = await carMakesReq();
-      return sortMakes(carMakesResponse.data.Results);
+      console.log('carMakes', carMakesResponse)
+      return this.sortMakes(carMakesResponse.data.Results);
     } catch (e) {
       console.log("Error in the request", e);
       return e;
@@ -70,7 +58,7 @@ export default class DropDown {
     }
   }
   
-  async  getMakesByYear(yr) {
+  async getMakesByYear(yr) {
     const carQuery = new CarQuery();
     const makeResults = await carQuery.getMakes(yr).then(makes => makes);
     return makeResults;
@@ -82,13 +70,29 @@ export default class DropDown {
     );
     try {
       const makeResponse = await makesReq();
-      return sortMakes(makeResponse.data.Results);
+      return this.sortMakes(makeResponse.data.Results);
     } catch (e) {
       console.log("Error in the request", e);
       return e;
     }
-  }
+  };
+
+  async getAllUSMakesByYear(year) {
+    try {
+      const carQuery = new CarQuery();
+      const makes = await carQuery.getMakes().then(makes => makes);
+      return this.sortMakes(makes);
+    } catch (e) {
+      console.log("Error in the request", e);
+      return e;
+    }
+  };
   
+  async getYears() {
+    const carQuery = new CarQuery();
+    const years = await carQuery.getYears().then(years => years);
+    return years;
+  };
 
 }
 
