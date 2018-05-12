@@ -87,7 +87,7 @@ describe("YMM", () => {
     expect(all_makes.length).to.be.equal(94);
   });
 
-  it.only("getModels returns an Array of models for year and make", async () => {
+  it("getModels returns an Array of models for year and make", async () => {
     dropDownInstance.setYear(2008);
     dropDownInstance.setMake('toyota')
     const models = await dropDownInstance.getModels();

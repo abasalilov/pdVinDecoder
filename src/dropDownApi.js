@@ -95,9 +95,8 @@ export default class DropDown {
     }
   };
   
-  async getYears() {
-    const carQuery = new CarQuery();
-    const years = await carQuery.getYears().then(years => years);
+  getYears() {
+    const years = {minYear: 1941, maxYear:  new Date().getFullYear()};
     return years;
   };
 
