@@ -14,6 +14,14 @@ export default class DropDown {
     return data.filter((a) => a.isCommon === true);
   };
 
+  sortModels(data) {
+    return data.sort((a, b) => {
+      if(a.name.toUpperCase() < b.name.toUpperCase()) return -1;
+      if(a.name.toUpperCase() > b.name.toUpperCase()) return 1;
+      return 0;
+    });
+  };
+
   setYear(yr) {
     this.year = yr;
   }
@@ -36,7 +44,6 @@ export default class DropDown {
     );
     try {
       const carMakesResponse = await carMakesReq();
-      console.log('carMakes', carMakesResponse)
       return this.sortMakes(carMakesResponse.data.Results);
     } catch (e) {
       console.log("Error in the request", e);
@@ -93,6 +100,30 @@ export default class DropDown {
     const years = await carQuery.getYears().then(years => years);
     return years;
   };
+
+  async getModels() {
+    const modelsReq = makeNHTSAReq("https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/"+this.make+"/modelyear/"+this.year+"?format=json")
+    try {
+      const modelsResponse = await modelsReq();
+      return modelsResponse.data.Results;
+    } catch (e) {
+      console.log("Error in the request", e);
+      return e;
+    }
+  
+    //   const searchCriteria = {
+  //     year: this.year,
+  //     make: this.make
+  // }
+  //   try {
+  //       const carQuery = new CarQuery();
+  //       const models = await carQuery.getModels(searchCriteria).then(models => models);
+  //       return this.sortModels(models);
+  //     } catch (e) {
+  //       console.log("Error in the request", e);
+  //       return e;
+  //     }  
+  }
 
 }
 

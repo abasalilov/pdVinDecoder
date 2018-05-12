@@ -81,6 +81,20 @@ describe("YMM", () => {
     const all_makes = await dropDownInstance.getAllUSMakesByYear(2017);
     expect(all_makes.length).to.be.equal(94);
   });
+
+  it("getAllUSMakesByYear returns an Array of all makes sold in US", async () => {
+    const all_makes = await dropDownInstance.getAllUSMakesByYear(2017);
+    expect(all_makes.length).to.be.equal(94);
+  });
+
+  it.only("getModels returns an Array of models for year and make", async () => {
+    dropDownInstance.setYear(2008);
+    dropDownInstance.setMake('toyota')
+    const models = await dropDownInstance.getModels();
+    expect(models.length).to.be.equal(22);
+  });
+
+
 });
 
 // //SAMPLES TO TEST
