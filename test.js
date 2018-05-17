@@ -7,35 +7,32 @@ import { decoder, DropDownAPI } from "./src/index.js";
 const baseURL =
   "https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json";
 
-// export const allMakesRequest = () =>
-//   axios.create({
-//     timeout: 10000,
-//     method: "get",
-//     url: baseURL
-//   });
+describe("decoder", () => {
+  it("should return false when vin is empty", async () => {
+    const vinResponse = await decoder();
+    expect(vinResponse.results).to.be.equal(false);
+  });
 
-// describe("decoder", () => {
-//   it("should return false when vin is empty", async () => {
-//     const vinResponse = await decoder();
-//     expect(vinResponse.results).to.be.equal(false);
-//   });
+  it("should return true when vin entered for a 2002 Acura TL", async () => {
+    const vinResponse = await decoder("19UUA56602A801534");
+    expect(vinResponse.results).to.be.equal(true);
+  });
 
-//   it("should return true when vin entered for a 2002 Acura TL", async () => {
-//     const vinResponse = await decoder("19UUA56602A801534");
-//     expect(vinResponse.results).to.be.equal(true);
-//   });
-
-//   it("should return data with a ModeYear property of `2002` when vin entered for a 2002 Acura TL", async () => {
-//     const vinResponse = await decoder("19UUA56602A801534");
-//     // console.log('vinResponse', vinResponse)
-//     expect(vinResponse.ModelYear).to.be.equal("2002");
-//   });
-// });
+  it("should return data with a ModeYear property of `2002` when vin entered for a 2002 Acura TL", async () => {
+    const vinResponse = await decoder("19UUA56602A801534");
+    // console.log('vinResponse', vinResponse)
+    expect(vinResponse.ModelYear).to.be.equal("2002");
+  });
+});
 
 
 
 const currentYear = new Date().getFullYear();
 const dropDownInstance = new DropDownAPI();
+const Solara  = { Make_ID: 448,
+  Make_Name: 'Toyota',
+  Model_ID: 2803,
+  Model_Name: 'Solara'};
 
 describe("YMM", () => {
 
@@ -83,18 +80,34 @@ describe("YMM", () => {
   });
 
   it("getAllUSMakesByYear returns an Array of all makes sold in US", async () => {
-    const all_makes = await dropDownInstance.getAllUSMakesByYear(2017);
-    expect(all_makes.length).to.be.equal(94);
+    const all_makes = await dropDownInstance.getAllUSMakesByYear(2008);
+    console.log(all_makes)
+    // expect(all_makes.length).to.be.equal(94);
   });
 
   it("getModels returns an Array of models for year and make", async () => {
     dropDownInstance.setYear(2008);
-    dropDownInstance.setMake('toyota')
+    dropDownInstance.setMake('toyota');
     const models = await dropDownInstance.getModels();
-    expect(models.length).to.be.equal(22);
+    expect(models.length).to.be.equal(29);
   });
 
+  it.only("getTrims returns an Array of engine sizes for the ", async () => {
+    dropDownInstance.setYear(2006);
+    dropDownInstance.setMake('Dodge');
+    dropDownInstance.setModel('Durango');
+    const engines = await dropDownInstance.getTrims();
+    const data = await dropDownInstance.getModelData();
+    console.log('data', data)
+    // expect(models.length).to.be.equal(22);
+  });
 
+  // it.only("getModelData returns an Array of engine sizes for the ", async () => {
+  //   const data = await dropDownInstance.getModelData(39585);
+  //   console.log('this', data)
+  //   // engineLiters
+  //   // expect(models.length).to.be.equal(22);
+  // });
 });
 
 // //SAMPLES TO TEST
