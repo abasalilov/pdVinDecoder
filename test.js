@@ -20,12 +20,9 @@ describe("decoder", () => {
 
   it("should return data with a ModeYear property of `2002` when vin entered for a 2002 Acura TL", async () => {
     const vinResponse = await decoder("19UUA56602A801534");
-    // console.log('vinResponse', vinResponse)
     expect(vinResponse.ModelYear).to.be.equal("2002");
   });
 });
-
-
 
 const currentYear = new Date().getFullYear();
 const dropDownInstance = new DropDownAPI();
@@ -48,7 +45,7 @@ describe("YMM", () => {
 
   it("instance is able to set model", async () => {
     dropDownInstance.setModel("Altima");
-    expect(dropDownInstance.model).to.be.equal("Altima");
+    expect(dropDownInstance.model_name).to.be.equal("Altima");
   })
 
   it("instance is able to set engine size", async () => {
@@ -72,6 +69,7 @@ describe("YMM", () => {
   it("getAllMakes returns an Array of all makes", async () => {
     const all_makes = await dropDownInstance.getAllMakes();
     expect(all_makes.length).to.be.equal(156);
+    expect(Array.isArray(all_makes)).to.be.equal(true);
   });
 
   it("getAllUSMakesByYear returns an Array of all makes sold in US", async () => {
@@ -81,33 +79,23 @@ describe("YMM", () => {
 
   it("getAllUSMakesByYear returns an Array of all makes sold in US", async () => {
     const all_makes = await dropDownInstance.getAllUSMakesByYear(2008);
-    console.log(all_makes)
-    // expect(all_makes.length).to.be.equal(94);
+    expect(all_makes.length).to.be.equal(94);
   });
 
   it("getModels returns an Array of models for year and make", async () => {
     dropDownInstance.setYear(2008);
     dropDownInstance.setMake('toyota');
     const models = await dropDownInstance.getModels();
-    expect(models.length).to.be.equal(29);
+    expect(models.length).to.be.equal(19);
   });
 
-  it.only("getTrims returns an Array of engine sizes for the ", async () => {
+  it("getTrims returns an Array of engine sizes for the ", async () => {
     dropDownInstance.setYear(2006);
     dropDownInstance.setMake('Dodge');
     dropDownInstance.setModel('Durango');
-    const engines = await dropDownInstance.getTrims();
-    const data = await dropDownInstance.getModelData();
-    console.log('data', data)
-    // expect(models.length).to.be.equal(22);
+    const trims = await dropDownInstance.getTrims();
+    expect(Array.isArray(trims)).to.be.equal(true);
   });
-
-  // it.only("getModelData returns an Array of engine sizes for the ", async () => {
-  //   const data = await dropDownInstance.getModelData(39585);
-  //   console.log('this', data)
-  //   // engineLiters
-  //   // expect(models.length).to.be.equal(22);
-  // });
 });
 
 // //SAMPLES TO TEST

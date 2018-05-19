@@ -6,8 +6,8 @@ export default class DropDown {
   constructor() {
     this.year = null;
     this.make = null;
-    this.model_Name = null;
-    this.model_ID = null;
+    this.model_name = null;
+    this.model_id = null;
     this.engSize = null;
     this.trims = null;
   }
@@ -35,7 +35,7 @@ export default class DropDown {
   }
 
   setModel(name) {
-    this.model_Name = name;
+    this.model_name = name;
   }
 
   setEngineSize(engSize){
@@ -106,14 +106,6 @@ export default class DropDown {
   };
 
   async getModels() {
-    // const modelsReq = makeNHTSAReq("https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/"+this.make+"/modelyear/"+this.year+"?format=json")
-    // try {
-    //   const modelsResponse = await modelsReq();
-    //   return modelsResponse.data.Results;
-    // } catch (e) {
-    //   console.log("Error in the request", e);
-    //   return e;
-    // }
 
     const searchCriteria = {
       year: this.year,
@@ -124,9 +116,7 @@ export default class DropDown {
     try {
       const carQuery = new CarQuery();
       const models = await carQuery.getModels(searchCriteria).then(models => models);
-      // return this.sortmodels(models);
-      // console.log('models', models)
-      return models;
+      return this.sortModels(models);
     } catch (e) {
       console.log("Error in the request", e);
       return e;
@@ -140,11 +130,9 @@ export default class DropDown {
       make: this.make,
     };
     const carQuery = new CarQuery();
-    const engineData = await carQuery.getTrims(searchCriteria).then(engineData => engineData);
-    const data = await carQuery.getModelDetail(17555).then(data => data);
-    engineData.forEach(trim => {
-      if(trim.name === this.model_Name){
-        console.log(trim.name)
+    const trims = await carQuery.getTrims(searchCriteria).then(engineData => engineData);
+    trims.forEach(trim => {
+      if(trim.name === this.model_name){
         trimsArr.push({modelId: trim.modelId, engine: this.getEngine(trim)});
       };
     });
@@ -153,6 +141,12 @@ export default class DropDown {
   };
 
   async getModelData(modelId){
+    const id = modelId ? modeId : this.model_id;
+    
+    if(!id){
+      return false;
+    }
+
     try {
       const carQuery = new CarQuery();
       const data = await carQuery.getModelDetail(modelId).then(data => data);
@@ -164,25 +158,11 @@ export default class DropDown {
   }
 
   getEngine(data){
-    console.log('data', data)
-  const configs =  {
-      AA: data.engineLiters + "L " + data.engineCubicInches + "CI V" + data.engineCyclinders,
-      AZ: data.engineCyclinders +" Cylinders " + data.engineValvesPerCylinder + " "+ data.engineLiters + "L ",
+    // console.log('data into the engines', data)
+    const cylinders = data.engineCyclinders + " Cylinders";
+    const engSizeLiters = data.engineCC / 1000;
+    const roundedEngSizeLiters = Number(Math.round(engSizeLiters+'e1')+'e-1') + ' L ';
+    return {cylinders: cylinders, engineSize: roundedEngSizeLiters, trim: data.trim }
   }
-//  : {
-//     AA: data.engineCubicInches + "CI V" + data.engineCyclinders,
-//     AZ: data.engineCyclinders +" Cylinders " + data.engineValvesPerCylinder,
-// } 
-  // console.log('configs', configs)
 
-  return configs;
-}
-
-}
-
-
-// Most modern OHV engines have two valves per cylinder, 
-// while many OHC engines can have three, four or even five valves per cylinder to achieve greater power.
-
-// the DOHC engines usually have more valves per cylinder than the SOHC versions. 
-// They will also usually have less parts involved (most DOHC directly actuate the valves, where SOHC usually have rocker arms). 
+};
