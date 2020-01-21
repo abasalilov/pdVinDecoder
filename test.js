@@ -18,7 +18,7 @@ describe("decoder", () => {
       expect(vinResponse.ModelYear).to.be.equal("2002");
       expect(vinResponse.Make).to.be.equal("ACURA");
       expect(vinResponse.hasRecall).to.be.equal(true);
-      expect(vinResponse.recallDetails.length).to.be.equal(5);
+      expect(vinResponse.recallDetails.length).to.be.equal(7);
     });
   });
 
@@ -29,7 +29,7 @@ describe("decoder", () => {
       expect(vinResponse.ModelYear).to.be.equal("2012");
       expect(vinResponse.Make).to.be.equal("BMW");
       expect(vinResponse.hasRecall).to.be.equal(true);
-      expect(vinResponse.recallDetails.length).to.be.equal(3);
+      expect(vinResponse.recallDetails.length).to.be.equal(4);
     });
   });
 
